@@ -1,11 +1,18 @@
 Finance related utilities in Python
 
+# rounding
+
+Round a float to nth digits after decimal points with base m.
+
+Usage:
+
+python rounding.py 1.645332 5 5
+
+It will output 1.64535
 
 # parsestock
 
 Parse stock price to calculate objective price according to past and current EPS
-
-*05/24/2016 Removed historical EPS data because https://tw.finance.yahoo.com/ seems to block urllib API now
 
 This script is for Taiwan Stock Exchange. It uses Google finance for current EPS data.
 
