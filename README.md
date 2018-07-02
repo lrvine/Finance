@@ -2,9 +2,13 @@ Finance related utilities in Python
 
 # rounding
 
-Round a float to nth digits after decimal points with base m.
+Round a float x to nth digits after decimal points with base m.
 
 Usage:
+
+python rounding.py x n m
+
+Example:
 
 python rounding.py 1.645332 5 5
 
