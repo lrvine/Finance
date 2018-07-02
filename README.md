@@ -6,11 +6,11 @@ Round a float x to nth digits after decimal points with base m.
 
 Usage:
 
-python rounding.py x n m
+python rounding.py  x  n  m
 
 Example:
 
-python rounding.py 1.645332 5 5
+python rounding.py  1.645332  5  5
 
 It will output 1.64535
 
