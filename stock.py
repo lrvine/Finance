@@ -1,48 +1,56 @@
-import urllib
+import urllib.request
 import re
 import sys
+import pandas_datareader.data as web
+from datetime import datetime
+from datetime import timedelta
 
 
-def get_quote(symbol):
-    base_url = 'http://www.bloomberg.com/quote/'
-    content = urllib.urlopen(base_url + symbol + ':TT').read()
-    m = re.search('<div class="price">(.*?)</div>', content)
-    if m:
-        quote = m.group(1)
-    else:
-        quote = 'no quote available for: ' + symbol
-    return quote
+def get_quote(ticker):
+    start = datetime.today()-timedelta(days=1)
+    end = datetime.today()
+    prices = web.DataReader(ticker, 'yahoo', start, end)
+    close = prices['Close']
+    return str(float(close[0]))
 
 
 def get_estimate(symbol):
-    base_url = 'https://www.google.com/finance?q=TPE:'
-    content = urllib.urlopen(base_url + symbol).read()
-    m = re.findall('<td class="val">(.*?)\s', content)
+    base_url = 'https://tw.stock.yahoo.com/d/s/dividend_'
+    content = urllib.request.urlopen(
+        base_url + symbol + '.html').read().decode("big5")
+    match = re.findall('<td align="center">(.*?)</td>', content)
     dif = 0
-    if m:
-        print ' P/E ratio is ', m[5]
-        print ' estimate EPS is ', m[7]
-        r = float(m[7])*20
-        print 'current reasonable price for 5% retrun might be ', r
-        r = float(m[7])*25
-        print 'current reasonable price for 4% retrun might be ', r
-        r = float(m[7])*50
-        print 'current reasonable price for 2% retrun might be ', r
+    if match:
+        avg = 0
+        print('\nLast 5 years dividend are')
+        for i in range(5):
+            avg += float(match[4+i*5])
+            print(match[4+i*5])
+
+        avg = avg/5
+        print('\nAverage dividen of the past 5 year is', avg)
+        r = float(avg)*20
+        print('current reasonable price for 5% dividend price ratio might be ', r)
+        r = float(avg)*25
+        print('current reasonable price for 4% dividend price ratio might be ', r)
+        r = float(avg)*50
+        print('current reasonable price for 2% dividend price ratio might be ', r)
     else:
-        print ' get estimate EPS failure ' + symbol
+        print('Get dividen failure ' + symbol)
 
 
-def p_price(symbol):
-    print symbol+' current price is ', get_quote(symbol)
+def target_dividend_yield(symbol):
+    print(' === ' + symbol + ' === ' +
+          ' current price is ' + get_quote(symbol+'.TW'))
     get_estimate(symbol)
 
 
 if __name__ == "__main__":
     try:
         stocklist = open(sys.argv[1]).read().splitlines()
-        print '\n'
+        print('\n')
         for line in stocklist:
-            p_price(line)
-            print '\n'
+            target_dividend_yield(line)
+            print('\n')
     except KeyboardInterrupt:
-        print "\n\nUser Press Ctrl+C,Exit"
+        print("\n\nUser Press Ctrl+C,Exit")

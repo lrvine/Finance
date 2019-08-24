@@ -16,8 +16,8 @@ def round_to_nth_digits_after_decimal_point_with_base_m(x, n=5, m=5):
 
 if __name__ == "__main__":
     try:
-        print round_to_nth_digits_after_decimal_point_with_base_m(
-            float(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
-        print '\n'
+        print (round_to_nth_digits_after_decimal_point_with_base_m(
+            float(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3])))
+        print ('\n')
     except KeyboardInterrupt:
-        print "\n\nUser Press Ctrl+C,Exit"
+        print ("\n\nUser Press Ctrl+C,Exit")

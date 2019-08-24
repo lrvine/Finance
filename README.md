@@ -1,4 +1,4 @@
-Finance related utilities in Python
+Finance related utilities in Python 3
 
 # rounding
 
@@ -6,19 +6,21 @@ Round a float x to nth digits after decimal points with base m.
 
 Usage:
 
-python rounding.py  x  n  m
+python3 rounding.py  x  n  m
 
 Example:
 
-python rounding.py  1.645332  5  5
+python3 rounding.py  1.645332  5  5
 
 It will output 1.64535
 
 # parsestock
 
-Parse stock price to calculate objective price according to past and current EPS
+Parse stock price to calculate price according target dividend yield.
 
-This script is for Taiwan Stock Exchange. It uses Google finance for current EPS data.
+This script is for Taiwan Stock Exchange.
+
+It uses Yahoo API for current price, and Yahoo TW finance for dividend data.
 
 Usage:
 
@@ -26,4 +28,4 @@ Put the stock code number into the list.txt
 
 Execute:
 
-Python stock.py list.txt
+Python3 stock.py list.txt
